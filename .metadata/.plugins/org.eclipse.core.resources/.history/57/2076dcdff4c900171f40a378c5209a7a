@@ -9,7 +9,7 @@ public class NewMenuswitch {
 				untermenu=IO_MainMenu.menu_objverw();
 				switch (untermenu) {
 					case 1: //Objekt hinzufügen
-						NewIO_fluverw.neuobj();
+						NewIO_objverw.neuobj();
 					break;
 					case 2: //Objekt entfernen
 //						IO_objverw.delobj(flugzeug, kunde);								
@@ -30,7 +30,7 @@ public class NewMenuswitch {
 				untermenu=IO_MainMenu.menu_kuverw();
 				switch (untermenu) {
 					case 1: //Objekt hinzufügen
-						NewIO_kuverw.neuobj();
+//						IO_kuverw.neuobj(flugzeug, kunde);
 					break;
 					case 2: //Objekt entfernen
 //						IO_kuverw.delobj(flugzeug, kunde);								

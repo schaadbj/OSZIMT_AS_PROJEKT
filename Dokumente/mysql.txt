@@ -1,0 +1,5 @@
+Connectivity
+TCP/IP - Port 3306
+Named Pipe: MYSQL
+
+rootPW: oszimt

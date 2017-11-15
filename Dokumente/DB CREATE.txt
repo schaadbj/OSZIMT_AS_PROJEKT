@@ -1,0 +1,23 @@
+CREATE DATABASE `db_flugzeugverleih` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+CREATE TABLE `t_flugzeuge` (
+  `pk_ID` int(11) NOT NULL,
+  `Modell` varchar(100) DEFAULT NULL,
+  `Sitze` int(11) DEFAULT NULL,
+  `f_Kunden_ID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`pk_ID`),
+  KEY `pk_ID_idx` (`f_Kunden_ID`),
+  CONSTRAINT `pk_ID` FOREIGN KEY (`f_Kunden_ID`) REFERENCES `t_kunden` (`pk_ID`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `t_kunden` (
+  `pk_ID` int(11) NOT NULL,
+  `Nachname` varchar(100) DEFAULT NULL,
+  `Vorname` varchar(100) DEFAULT NULL,
+  `Straﬂe` varchar(100) DEFAULT NULL,
+  `Nummer` int(11) DEFAULT NULL,
+  `PLZ` int(11) DEFAULT NULL,
+  `Ort` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`pk_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
