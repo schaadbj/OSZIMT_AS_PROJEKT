@@ -18,7 +18,13 @@ public class NewMain {
 	}
 	
 	public static void main(String[] args) {
-		NewMenuswitch.main();
+		String host="localhost", db="db_flugzeugverleih", user="root", pw="oszimt";
+		
+		
+		//prüft Verbindung & verbindet sich wenn möglich, wenn nicht -> Fehlermeldung
+		if (!(DBconnection.connectToMysql(host, db, user, pw))) System.out.println("FEHLER-DATENBANKVERBINDUNG KONNTE NICHT HERGESTELLT WERDEN");
+		else NewMenuswitch.main();
+		
 		
 	}
 
