@@ -1,0 +1,18 @@
+package application;
+
+public class Mietobjekte {
+	//hinzufügen
+	public static String[][] eintrag(int id, String modell, String flugzeug[][], int sitze){
+	    String ssitze=""+sitze;
+	    flugzeug[id][0]=modell;
+	    flugzeug[id][1]=ssitze;
+	    return flugzeug;
+	}  
+	
+	
+	//Objekte entfernen
+	public static void löschen(String flugzeug[][], int platz){
+	    flugzeug[platz-1][0]=null;
+	    flugzeug[platz-1][1]=null;
+	}
+}

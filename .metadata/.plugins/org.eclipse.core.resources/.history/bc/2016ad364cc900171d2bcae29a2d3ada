@@ -1,0 +1,25 @@
+package application;
+
+public class Objekte {
+	//hinzufügen
+	public static String[][] flugzeug_eintrag(int id, String modell, String flugzeug[][], int sitze){
+	    String ssitze=""+sitze;
+	    flugzeug[id][0]=modell;
+	    flugzeug[id][1]=ssitze;
+	    return flugzeug;
+	}  
+	
+	
+	//Objekte entfernen
+	public static String[][] flugzeug_loeschen(String flugzeug[][], int id){
+	    flugzeug[id][0]=null;
+	    flugzeug[id][1]=null;
+	    return flugzeug;
+	}
+	
+	public static String[][] kunde_eintrag(String kunde[][], int id, String vname, String nname, String str, int adrnr, int plz, String ort){
+		kunde[id][0]=vname;
+		
+		return kunde;
+	}
+}

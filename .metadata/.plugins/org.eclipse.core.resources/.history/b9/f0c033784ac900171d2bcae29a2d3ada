@@ -1,0 +1,55 @@
+package application;
+
+public class Menuswitch {
+	public static void main(String[][] flugzeug) {
+		int untermenu;
+		int hauptmenu=IO_MainMenu.hauptmenu();
+		switch (hauptmenu) {
+			case 1 : //Objektverwaltung
+				untermenu=IO_MainMenu.menu_objverw();
+				switch (untermenu) {
+					case 1: //Objekt hinzufügen
+						IO_objverw.neuobj(flugzeug);
+					break;
+					case 2: //Objekt entfernen
+						IO_objverw.delobj(flugzeug);								//hier weitermachen
+					break;
+					case 3: //Ein Objekt anzeigen
+						IO_objverw.showobj(flugzeug);
+					break;
+					case 4: //Alle Objekte anzeigen
+						IO_objverw.showall(flugzeug);
+					break;
+					case 0: //beenden
+						Menuswitch.main(flugzeug);
+					break;
+					default:
+				}//end of switch untermenu
+			break;
+			case 2 : //Kundenverwaltung
+				untermenu=IO_MainMenu.menu_kuverw();
+				switch (untermenu) {
+					case 1: //Objekt hinzufügen
+						IO_objverw.neuobj(flugzeug);
+					break;
+					case 2: //Objekt entfernen
+						IO_objverw.delobj(flugzeug);								//hier weitermachen
+					break;
+					case 3: //Ein Objekt anzeigen
+						IO_objverw.showobj(flugzeug);
+					break;
+					case 4: //Alle Objekte anzeigen
+						IO_objverw.showall(flugzeug);
+					break;
+					case 0: //beenden
+						Menuswitch.main(flugzeug);
+					break;
+					default:
+				}//end of switch untermenu
+			break;
+			case 0: //beenden
+			break;
+			default:
+		} //end of switch hauptmenu
+	}
+}

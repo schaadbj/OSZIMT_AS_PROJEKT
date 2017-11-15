@@ -1,0 +1,18 @@
+package application;
+import oszimtJE.Tastatur;
+
+public class Console {
+	public static int menu() {
+		System.out.println("==========FLUGZEUGVERWALTUNG==========\n______________________________________\n");
+	    System.out.println("----Menü----");
+	    System.out.println("1. Mietobjektverwaltung");
+	    System.out.println("2. Menüpunkt");
+	    System.out.println("3. Menüpunkt");
+	    System.out.println("4. Menüpunkt");
+	    System.out.println("5. Menüpunkt");
+	    System.out.println("6. Menüpunkt");
+	    System.out.println("0. Beenden");
+	    int menu=Tastatur.liesInt()
+		
+	}//end of method menu
+}//end of class Console

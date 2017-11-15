@@ -1,0 +1,116 @@
+package application;
+
+import java.util.Scanner;
+
+public class IO_objverw {
+	static Scanner sc = new Scanner(System.in);
+//====Neues Objekt====	
+	public static void neuobj(String flugzeug[][]) {
+		//Eingaben
+		System.out.println("\n----------Neues Flugzeug hinzufügen-----------");                                            //--Eingabe Beginn
+	    System.out.print("\nGeben Sie das Flugzeugmodell ein: ");
+	    String modell=sc.next();
+	    System.out.print("\nGeben Sie die Sitzplätze des Flugzeugs ein: ");
+	    int sitze=sc.nextInt();
+	    System.out.println("\nGeben Sie die Nummer des Flugzeugs ein:  (0=automatisch zuweisen)");
+	    System.out.println("Achtung wenn die Nummer bereits vergeben ist wird diese überschrieben!");
+	    int nr=sc.nextInt();
+	    if (nr==0) {
+			for (int i=1; i<=24;i++){
+				if (flugzeug[i][0]==null) {
+					nr=i;
+					break;
+				}
+				if (i==24) {
+					System.out.println("Es gibt keinen freien Platz, welcher soll überschrieben werden?");
+					nr=sc.nextInt();
+				}
+			}
+		 }
+	    //Überprüfung ob ID zulässig
+	    int i=0;
+	    while (i==0) { //läuft bis zulässige ID gewählt wurde
+	    	if ((nr<24) && (nr>0)) i=1;
+	    	else {
+	    		System.out.println("Es können maximal 24 Objekte verwaltet werden geben Sie eine Zahl von 1-24 ein:");
+	            nr = sc.nextInt();
+	            i=0;  
+	    	}//end of else
+	    }//end of while
+	   
+	    //Flugzeug Objekt erstellen
+	    flugzeug=Mietobjekte.eintrag(nr, modell, flugzeug, sitze);
+	   
+	    //Ausgabe Check
+	    System.out.println("\nSie haben folgendes Flugzeug hinzugefügt:");                                                     //--Ausgabe Beginn
+	    System.out.println("Flugzeugnummer: "+nr);
+	    System.out.println("Modell: "+flugzeug[nr][0]);
+	    System.out.println("Sitzplätze: "+flugzeug[nr][1]); 
+	    IO_MainMenu.fortfahren(flugzeug);
+	}//end of method neuobj
+	
+//====Objekt löschen	
+	public static void delobj(String flugzeug[][]) {
+		System.out.println("\n----------Flugzeug entfernen-----------");                                            //--Eingabe Beginn
+	    System.out.print("\nGeben Sie die Nummer des Flugzeugs ein: ");	
+	    int id=sc.nextInt();
+	    System.out.println("\nSie löschen folgendes Flugzeug:");
+	    System.out.println("Flugzeugnummer: "+ id );
+	    System.out.println("Modell: "+ flugzeug[id][0]);
+	    System.out.println("Sitzplätze: "+ flugzeug[id][1]);
+	    int i=0;
+	    while (i==0) {
+	    	System.out.println("Löschen bestätigen (Y/N)");
+	    	char del=sc.next().toLowerCase().charAt(0);
+	    	switch (del) {
+	    	case 'y' :
+	    		i=1;
+	    		flugzeug=Mietobjekte.loeschen(flugzeug, id);
+	    		System.out.println("Erfolgreich gelöscht");
+	    		break;
+	    	case 'n' :
+	    		i=1;
+	    		System.out.println("Löschen beendet");
+	    		break;
+	    	default:
+	    		i=0;
+	    	}//end of switch
+	    }//end of while
+	    IO_MainMenu.fortfahren(flugzeug);
+	}//end of method delobj
+	
+//===Objekt anzeigen
+	public static void showobj(String[][] flugzeug) {
+		 System.out.println("\n----------Anzeigen eines Flugzeugs-----------");
+		 System.out.print("\nGeben Sie die Nummer des Flugzeugs ein:");
+		 int nr=sc.nextInt();
+		 int i=0;
+		 while (i==0) { 
+		 	 if ((nr<=24) && (nr>0)) i=1;
+		     else {
+		        System.out.println("Es können maximal 24 Objekte verwaltet werden geben Sie eine Zahl von 1-24 ein:");
+		        nr = sc.nextInt();
+		        i=0;  
+		     } // end of if-else
+		 } // end of while   
+		 if ((flugzeug[nr][0]!=null)&&(flugzeug[nr-1][1]!=null)) {
+		      System.out.println("\nFlugzeugnummer: "+(nr));
+		      System.out.println("Modell: "+flugzeug[nr][0]);
+		      System.out.println("Sitzplätze: "+flugzeug[nr][1]);
+		 } // end of if
+		 else System.out.println("\nEs gibt kein Flugzeug mit der Nummer "+nr+"\n");	
+		 IO_MainMenu.fortfahren(flugzeug);
+	}//end of method showobj
+	
+	public static void showall(String[][] flugzeug) {
+		System.out.println("\n----------Anzeigen aller Flugzeuge-----------");
+	    for (int i=1; i<=24 ;i++ ) {
+	      if ((flugzeug[i][0]!=null)&&(flugzeug[i][1]!=null)) {
+	        System.out.println("\nFlugzeugnummer: "+(i));
+	        System.out.println("Modell: "+flugzeug[i][0]);
+	        System.out.println("Sitzplätze: "+flugzeug[i][1]);
+	      } // end of if
+	    } // end of for
+	    IO_MainMenu.fortfahren(flugzeug);
+	}//end of method showall
+}//end of class Objektverwaltung

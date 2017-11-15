@@ -1,0 +1,56 @@
+package application;
+	
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+
+
+public class Main extends Application {
+	@Override
+	public void start(Stage primaryStage) {
+		try {
+			BorderPane root = new BorderPane();
+			Scene scene = new Scene(root,400,400);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
+		String flugzeug[][] = new String [24][2];
+		int hauptmenu=MainMenu.hauptmenu();
+		switch (hauptmenu) {
+		case 1 : //Objektverwaltung
+			int untermenu=MainMenu.menu_objverw();
+			switch (untermenu) {
+			case 1: //Objekt hinzufügen
+				Objektverwaltung.neuobj(flugzeug);
+			break;
+			case 2: //Objekt entfernen
+				Objektverwaltung.delobj(flugzeug);								//hier weitermachen
+			break;
+			case 3: //Ein Objekt anzeigen
+				
+			break;
+			case 4: //Alle Objekte anzeigen
+				
+			break;
+			case 0: //beenden
+			break;
+			default:
+			}//end of switch untermenu
+		break;
+		case 2 :
+		break;
+		case 0: //beenden
+		break;
+		default:
+		} //end of switch hauptmenu
+		
+	}
+}

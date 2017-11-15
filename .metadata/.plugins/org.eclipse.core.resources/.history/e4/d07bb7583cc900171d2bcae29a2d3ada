@@ -1,0 +1,44 @@
+package application;
+
+import java.util.Scanner;
+
+public class Objektverwaltung {
+	static Scanner sc = new Scanner(System.in);
+	public static void neuobj(String flugzeug[][]) {
+		//Eingaben
+		System.out.println("\n----------Neues Flugzeug hinzufügen-----------");                                            //--Eingabe Beginn
+	    System.out.print("\nGeben Sie das Flugzeugmodell ein: ");
+	    String modell=sc.nextLine();
+	    System.out.print("\nGeben Sie die Sitzplätze des Flugzeugs ein: ");
+	    int sitze=sc.nextInt();
+	    System.out.println("\nGeben Sie die Nummer des Flugzeugs ein:");
+	    System.out.println("Achtung wenn die Nummer bereits vergeben ist wird diese überschrieben!");
+	    int id=sc.nextInt();
+	    
+	    //Überprüfung ob ID zulässig
+	    int i=0;
+	    while (i==0) { //läuft bis zulässige ID gewählt wurde
+	    	if ((id<24) && (id>0)) i=1;
+	    	else {
+	    		System.out.println("Es können maximal 24 Objekte verwaltet werden geben Sie eine Zahl von 1-24 ein:");
+	            id = sc.nextInt();
+	            i=0;  
+	    	}//end of else
+	    }//end of while
+	   
+	    //Flugzeug Objekt erstellen
+	    flugzeug=Mietobjekte.eintrag(id, modell, flugzeug, sitze);
+	   
+	    //Ausgabe Check
+	    System.out.println("\nSie haben folgendes Flugzeug hinzugefügt:");                                                     //--Ausgabe Beginn
+	    System.out.println("Flugzeugnummer: "+(id));
+	    System.out.println("Modell: "+flugzeug[id][0]);
+	    System.out.println("Sitzplätze: "+flugzeug[id][1]); 
+	}//end of method neuobj
+	
+	
+	public static void delobj(String flugzeug[][]) {
+		
+	}
+
+}//end of class Objektverwaltung
