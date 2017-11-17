@@ -1,10 +1,16 @@
 package application;
+
+
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
+
+//KLASSE ZUR KUNDENVERWALTUNG (Menüpunkt 2)
 
 public class IO_kuverw {
 	static Scanner sc = new Scanner(System.in);
-	//====Neues Objekt====	
-		public static void neuobj(String[][] flugzeug, String[][] kunde) {
+//====Neuer Kunde====	
+		public static void neuobj() throws SQLException {
 			//Eingaben
 			System.out.println("\n----------Neuen Kunden hinzufügen-----------");                                            //--Eingabe Beginn
 		    System.out.print("\nVorname: ");
@@ -15,122 +21,137 @@ public class IO_kuverw {
 		    System.out.print("\nStraße: ");
 		    String str=sc.next();
 		    System.out.print("\nNummer: ");
-		    int adrnr=sc.nextInt();
+		    int strnr=sc.nextInt();
 		    System.out.print("\nPLZ: ");
 		    int plz=sc.nextInt();
 		    System.out.print("\nOrt: ");
 		    String ort=sc.next();
-		    System.out.println("\nGeben Sie die Kundennummer ein:  (1-500; 0=automatisch zuweisen)");
-		    System.out.println("Achtung wenn die Nummer bereits vergeben ist wird diese überschrieben!");
-		    int nr=sc.nextInt();
-		    if (nr==0) {
-				for (int i=1; i<=500;i++){
-					if (kunde[i][0]==null) {
-						nr=i;
-						break;
-					}
-					if (i==500) {
-						System.out.println("Es gibt keinen freien Platz, welcher soll überschrieben werden?");
-						nr=sc.nextInt();
-					}
-				}
-			 }
-		    //Überprüfung ob ID zulässig
-		    int i=0;
-		    while (i==0) { //läuft bis zulässige ID gewählt wurde
-		    	if ((nr<=500) && (nr>0)) i=1;
-		    	else {
-		    		System.out.println("Es können maximal 500 Kunden verwaltet werden geben Sie eine Zahl von 1-500 ein:");
-		            nr = sc.nextInt();
-		            i=0;  
-		    	}//end of else
-		    }//end of while
-		   
+		    //nächste freie ID wird aus DB geladen
+		    String sqlquery = Sqlquery.getKunden();
+		    List<O_Kunde> kunden=DBconnection.showDBku(sqlquery);
+		    int id=1;
+		    try {
+		    	id=kunden.get(kunden.size()-1).getId()+1;
+		    }	    	
+		    catch (ArrayIndexOutOfBoundsException e) {//kunden.size()-1 wirft diese Exception wenn das Array Kunden keine Elemente enthält (Size=0)
+		    	System.out.println("\nDies ist der erste Datensatz, ID=1");
+		    }
+		    catch (NullPointerException e) {
+		    	System.out.println("\nNullPointerException");
+		    }
+		
 		    //Kunden Objekt erstellen
-		    kunde=Objekte.kunde_eintrag(kunde, nr, vname, nname, str, adrnr, plz, ort);
-		   
+		    O_Kunde kunde = new O_Kunde(id, plz, strnr, vname, nname, str, ort);
+		    String newKunde = Sqlquery.newKunde(id, nname, vname, str, strnr, plz, ort);
+		    DBconnection.updateDB(newKunde);
+		    
 		    //Ausgabe Check
-		    System.out.println("\nSie haben folgenden Kunden hinzugefügt:");                                                     //--Ausgabe Beginn
-		    System.out.println("Kundennummer: "+nr);
-		    System.out.println("Name: "+kunde[nr][0]+ ", " +kunde[nr][1]);
-		    System.out.println("Adresse: "+kunde[nr][2]+" "+kunde[nr][3]+", "+kunde[nr][4]+" "+kunde[nr][5]); 
-		    IO_MainMenu.fortfahren(flugzeug, kunde);
+		    System.out.println("\nSie haben folgenden Kunden hinzugefügt:");                                                     
+		    System.out.println("Kundennummer: "+kunde.getId());
+		    System.out.println("Name: "+kunde.getNname()+ ", " +kunde.getVname());
+		    System.out.println("Adresse: "+kunde.getStr()+" "+kunde.getStrnr()+", "+kunde.getPlz()+" "+kunde.getOrt()); 
+		    IO_Menu.fortfahrenkuverw();
 		}//end of method neuobj
 		
-	//====Objekt löschen	
-		public static void delobj(String[][] flugzeug, String[][] kunde) {
-			System.out.println("\n----------Kunde entfernen-----------");                                            //--Eingabe Beginn
-		    int i=0, nr = 0;
+//====Kunde löschen====		
+		public static void delobj() throws SQLException {	                                         
+		    int i=0, id = 0;
+		    
+		    //erzeuge ArrayList mit allen in DB(t_kunden) vorhandenen Einträgen
+		    String sqlquery = Sqlquery.getKunden();
+		    List<O_Kunde> kunden=DBconnection.showDBku(sqlquery);
+		    
+		    
+		    System.out.println("\n----------Kunde entfernen-----------");
+			System.out.print("\nGeben Sie die Kundennummer ein: ");
+			id=sc.nextInt();
+			
+			//Prüfung ob ID vergeben
 			while (i==0) {
-				System.out.print("\nGeben Sie die Kundennummer ein: ");	
-				nr=sc.nextInt();
-				if (kunde[nr][0]==null) System.out.println("\nEs gibt keinen Kunden zu dieser Nummer");
-				else i=1;
-		    }
-		    System.out.println("\nSie löschen folgenden Kunden:");
-		    System.out.println("Kundennummer: "+nr);
-		    System.out.println("Name: "+kunde[nr][0]+ ", " +kunde[nr][1]);
-		    System.out.println("Adresse: "+kunde[nr][3]+" "+kunde[nr][4]+", "+kunde[nr][5]+" "+kunde[nr][6]); 
-		    i=0;
-		    while (i==0) {
-		    	System.out.println("Löschen bestätigen (Y/N)");
-		    	char del=sc.next().toLowerCase().charAt(0);
-		    	switch (del) {
-		    	case 'y' :
-		    		i=1;
-		    		kunde=Objekte.kunde_loeschen(kunde, nr);
-		    		System.out.println("Erfolgreich gelöscht");
-		    		break;
-		    	case 'n' :
-		    		i=1;
-		    		System.out.println("Löschen beendet");
-		    		break;
-		    	default:
-		    		i=0;
-		    	}//end of switch
-		    }//end of while
-		    IO_MainMenu.fortfahren(flugzeug, kunde);
+				for (O_Kunde kunde: kunden) { //foreach Schleife, für jedes Kundenobjekt in Array Kunden
+					if (id==kunde.getId()) {
+						System.out.println("\nSie löschen folgenden Kunden:");                                                     
+					    System.out.println("Kundennummer: "+id);
+					    System.out.println("Name: "+kunde.getNname()+ ", " +kunde.getVname());
+					    System.out.println("Adresse: "+kunde.getStr()+" "+kunde.getStrnr()+", "+kunde.getPlz()+" "+kunde.getOrt()); 
+						i=0;
+						while (i==0) {//löschen bestätigen
+							System.out.println("Löschen bestätigen (Y/N)");
+							char del=sc.next().toLowerCase().charAt(0);
+							switch (del) {
+							case 'y' : //wird gelöscht
+								i=1;
+								String delete = Sqlquery.delKunde(id);
+								DBconnection.updateDB(delete);
+								System.out.println("Erfolgreich gelöscht");
+								break;
+							case 'n' : //wird nicht gelöscht
+								i=1;
+								System.out.println("Löschen beendet");
+								break;
+							default:
+								i=0;
+							}//end of switch
+						}//end of while
+					}
+				}//end of for
+				if (i==0) {
+					System.out.print("\nDie eingegebene Kundenummer existiert nicht. Geben Sie eine andere ein: (0=Beenden)");
+					id=sc.nextInt();
+				}
+				if (id==0) break;//break weil User 0=beenden ausgewählt hat
+			}//end of while	
+			
+			
+			IO_Menu.fortfahrenkuverw();
+			
 		}//end of method delobj
 		
-	//===Objekt anzeigen
-		public static void showobj(String[][] flugzeug, String[][] kunde) {
-			 System.out.println("\n----------Anzeigen eines Kunden-----------");
-			 System.out.print("\nGeben Sie die Kundennummer ein:");
-			 int nr=sc.nextInt();
-			 int i=0;
-				while (i==0) { 
-					if ((nr<=500) && (nr>0)) {
+//====Bestimmten Kunden anzeigen====	
+		public static void showobj() throws SQLException {
+			int i=0;
+			
+			//erzeuge ArrayList mit allen in DB(t_kunden) vorhandenen Einträgen
+			String sqlquery = Sqlquery.getKunden();
+			List<O_Kunde> kunden=DBconnection.showDBku(sqlquery);
+			
+			
+			System.out.println("\n----------Anzeigen eines Kunden-----------");
+			System.out.print("\nGeben Sie die Kundennummer ein:");
+			int id=sc.nextInt();
+			
+			//Überprüfung ob Kundennummer vorhanden
+			while (i==0) {	
+				for (O_Kunde kunde: kunden) { //foreach Schleife, für jedes Kundenobjekt in Array Kunden
+					if (id==kunde.getId()) { //wenn Kundenobjekt mit gesuchter ID gefunden wird
 						i=1;
-						if (kunde[nr][0]==null) {
-							System.out.println("\nEs gibt keinen Kunden zu dieser Nummer");
-							i=0;
-						}
-						else i=1;
-					}
-				    else {
-				        System.out.println("Es können maximal 500 Kunden verwaltet werden geben Sie eine Zahl von 1-500 ein:");
-				        nr = sc.nextInt();
-				        i=0;  
-				    } // end of if-else
-				} // end of while   
-			 if ((kunde[nr][0]!=null)&&(kunde[nr][1]!=null)) {
-				 System.out.println("Kundennummer: "+nr);
-				 System.out.println("Name: "+kunde[nr][0]+ ", " +kunde[nr][1]);
-				 System.out.println("Adresse: "+kunde[nr][2]+" "+kunde[nr][3]+", "+kunde[nr][4]+" "+kunde[nr][5]);
-			 } // end of if
-			 else System.out.println("\nEs gibt kein Kunden mit der Nummer "+nr+"\n");	
-			 IO_MainMenu.fortfahren(flugzeug, kunde);
+						System.out.println("Kundennummer: "+id);
+						System.out.println("Name: "+kunde.getNname()+ ", " +kunde.getVname());
+						System.out.println("Adresse: "+kunde.getStr()+" "+kunde.getStrnr()+", "+kunde.getPlz()+" "+kunde.getOrt());
+						break;
+					}//end of if
+				}//end of for
+				if (i==0) {
+					System.out.print("\nDie eingegebene Kundenummer existiert nicht. Geben Sie eine andere ein: (0=Beenden)");
+					id=sc.nextInt();
+				}//end of if			
+				if (id==0) break; //wenn User 0=beenden gewählt hat
+			}//end of while	
+			IO_Menu.fortfahrenkuverw();
 		}//end of method showobj
 		
-		public static void showall(String[][] flugzeug, String[][] kunde) {
+//====Alle Kunden anzeigen====			
+		public static void showall() throws SQLException {
+			//erzeuge ArrayList mit allen in DB(t_kunden) vorhandenen Einträgen
+			String allkunden = Sqlquery.getKunden();
+			List<O_Kunde> kunden=DBconnection.showDBku(allkunden);
 			System.out.println("\n----------Anzeigen aller Kunden-----------");
-		    for (int i=1; i<=500 ;i++ ) {
-		      if ((kunde[i][0]!=null)&&(kunde[i][1]!=null)) {
-		    	  System.out.println("Kundennummer: "+ i);
-				  System.out.println("Name: "+kunde[i][0]+ ", " +kunde[i][1]);
-				  System.out.println("Adresse: "+kunde[i][2]+" "+kunde[i][3]+", "+kunde[i][4]+" "+kunde[i][5]); 
-		      } // end of if
-		    } // end of for
-		    IO_MainMenu.fortfahren(flugzeug, kunde);
-		}//end of method showall
+			for (O_Kunde kunde: kunden) { //foreach Schleife, für jedes Kundenobjekt in Array Kunden
+					System.out.println("Kundennummer: "+kunde.getId());
+					System.out.println("Name: "+kunde.getNname()+ ", " +kunde.getVname());
+					System.out.println("Adresse: "+kunde.getStr()+" "+kunde.getStrnr()+", "+kunde.getPlz()+" "+kunde.getOrt()+"\n");
+			}
+		    IO_Menu.fortfahrenkuverw();
+	}//end of method showall
+
 }

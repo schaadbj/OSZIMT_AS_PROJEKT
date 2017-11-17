@@ -1,0 +1,72 @@
+package application;
+
+import java.sql.SQLException;
+
+public class Menuswitch {
+	public static void main() throws SQLException {
+		int untermenu;
+		int hauptmenu=IO_MainMenu.hauptmenu();		
+		switch (hauptmenu) {
+			case 1 : //Objektverwaltung
+				untermenu=IO_MainMenu.menu_objverw();
+				switch (untermenu) {
+					case 1: //Objekt hinzufügen
+						IO_fluverw.neuobj();
+					break;
+					case 2: //Objekt entfernen
+						IO_fluverw.delobj();								
+					break;
+					case 3: //Ein Objekt anzeigen
+						IO_fluverw.showobj();
+					break;
+					case 4: //Alle Objekte anzeigen
+						IO_fluverw.showall();
+					break;
+					case 0: //beenden
+						Menuswitch.main();
+					break;
+					default:
+				}//end of switch untermenu
+			break;
+			case 2 : //Kundenverwaltung
+				untermenu=IO_MainMenu.menu_kuverw();
+				switch (untermenu) {
+					case 1: //Objekt hinzufügen
+						IO_kuverw.neuobj();
+					break;
+					case 2: //Objekt entfernen
+						IO_kuverw.delobj();								
+					break;
+					case 3: //Ein Objekt anzeigen
+						IO_kuverw.showobj();
+					break;
+					case 4: //Alle Objekte anzeigen
+						IO_kuverw.showall();
+					break;
+					case 0: //beenden
+						Menuswitch.main();
+					break;
+					default:
+				}//end of switch untermenu
+			break;
+			case 3 : //Vermietung
+				untermenu=IO_MainMenu.menu_verm();
+				switch (untermenu) {
+					case 1:
+						
+					break;
+					case 2:
+					
+					break;
+					case 0: //beenden
+						Menuswitch.main();
+					break;
+				}
+			break;
+			case 0: //beenden
+				System.out.print("\n\nBeendet...");
+			break;
+			default:
+		} //end of switch hauptmenu
+	}
+}

@@ -6,4 +6,7 @@
 <fullyQualifiedTypeName name="sun.applet.Main"/>
 <fullyQualifiedTypeName name="application.Menuswitch"/>
 <fullyQualifiedTypeName name="application.IO_MainMenu"/>
+<fullyQualifiedTypeName name="application.O_Kunde"/>
+<fullyQualifiedTypeName name="java.sql.ResultSet"/>
+<fullyQualifiedTypeName name="application.DBconnection"/>
 </qualifiedTypeNameHistroy>

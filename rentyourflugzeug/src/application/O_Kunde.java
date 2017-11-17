@@ -1,12 +1,13 @@
 package application;
 
 public class O_Kunde {
-	private int id, plz, strnr;
+	private int id=0;
+	private int plz, strnr;
 	private String vname, nname, str, ort;
 //---Konstruktor	
 	public O_Kunde() {}
-	public O_Kunde(int plz, int strnr, String vname, String nname, String str, String ort) {
-		
+	public O_Kunde(int id,int plz, int strnr, String vname, String nname, String str, String ort) {
+		this.id=id;
 		this.plz = plz;
 		this.strnr = strnr;
 		this.vname = vname;

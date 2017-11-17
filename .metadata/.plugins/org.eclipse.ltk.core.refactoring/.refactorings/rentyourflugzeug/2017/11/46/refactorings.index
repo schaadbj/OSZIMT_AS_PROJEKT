@@ -11,3 +11,22 @@
 1510736746402	Rename local variable 'nr'
 1510743922629	Rename type 'NewIO_objverw'
 1510744360171	Rename local variable 'kunde1'
+1510839454392	Move compilation units
+1510839473464	Move compilation unit
+1510839516991	Rename type 'NewIO_fluverw'
+1510839535079	Rename type 'NewIO_kuverw'
+1510839643939	Rename type 'NewIO_MainMenu'
+1510839669799	Rename type 'NewMain'
+1510839685494	Rename type 'NewMenuswitch'
+1510839844286	Move compilation unit
+1510842850637	Move package
+1510844071179	Rename field 'nr'
+1510915275167	Rename method 'showDB'
+1510915404636	Rename field 'result'
+1510919750823	Rename local variable 'nr'
+1510921431890	Rename local variable 'kunden'
+1510923478672	Rename local variable 'kunde1'
+1510927399640	Rename method 'main'
+1510927466558	Rename type 'IO_MainMenu'
+1510927739667	Rename method 'fortfahren'
+1510928089839	Rename method 'menu_objverw'

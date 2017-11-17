@@ -1,13 +1,12 @@
 package application;
-	
-import javafx.application.Application;
-import javafx.stage.Stage;
+
+import java.sql.SQLException;
+
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
-
-public class Main extends Application {
-	@Override
+public class Main {
 	public void start(Stage primaryStage) {
 		try {
 			BorderPane root = new BorderPane();
@@ -20,10 +19,8 @@ public class Main extends Application {
 		}
 	}
 	
-	public static void main(String[] args) {
-		launch(args);
-		String flugzeug[][] = new String [25][3];
-		String kunde[][] = new String [501][7];
-		Menuswitch.main(flugzeug, kunde);
+	public static void main(String[] args) throws SQLException {		
+		Menuswitch.mainMenu();		
 	}
+
 }

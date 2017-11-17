@@ -1,0 +1,75 @@
+package application;
+
+import java.sql.*;
+
+
+public class DBconnection {
+	static Connection connection = null;	//Instanzvariable, auf der die Verbindung gespeichert wird
+	static Statement stmt = null;
+	static ResultSet result = null;
+	static String host="localhost";
+	static String db="db_flugzeugverleih";
+	static String user="root";
+	static String pw="oszimt";
+	
+//Verbindung erstellen
+	public static boolean connectToMysql(String host, String database, String user, String passwd){
+		try{
+			Class.forName("com.mysql.jdbc.Driver").newInstance(); //erzeugt neue Instanz vom Treiber, für neue Java Versionen nicht notwendig
+			String connectionCommand = "jdbc:mysql://"+host+"/"+database+"?user="+user+"&password="+passwd; //Port nicht notwendig, da Standard (3306) genutzt (Sonst hinter Host)
+			connection = DriverManager.getConnection(connectionCommand);
+			return true;
+		}
+		catch (Exception ex){
+			return false;
+		}
+	}
+	
+//DB Zugriff	
+	
+	
+	public static ResultSet showDB(String sqlquery) throws SQLException {
+		try {
+			//Test ob DB erreichbar
+			if (!(DBconnection.connectToMysql(host, db, user, pw))) {
+				System.out.println("FEHLER-DATENBANKVERBINDUNG KONNTE NICHT HERGESTELLT WERDEN");
+				return null;
+			}
+			else {
+				stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);//Ergebnis scrollbar, Query kann DB leseb
+				result = stmt.executeQuery(sqlquery);
+				return result;
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally {
+			if(result!=null) result.close();
+			if(stmt!=null) stmt.close();
+			if(connection!=null) connection.close();
+		}
+	}
+	
+	public static void updateDB(String sqlquery) throws SQLException {
+		try {
+			//Test ob DB erreichbar
+			if (!(DBconnection.connectToMysql(host, db, user, pw)))	System.out.println("FEHLER-DATENBANKVERBINDUNG KONNTE NICHT HERGESTELLT WERDEN");
+			else {
+				stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);//Ergebnis scrollbar, Query kann DB updaten
+				stmt.executeQuery(sqlquery);
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(result!=null) result.close();
+			if(stmt!=null) stmt.close();
+			if(connection!=null) connection.close();
+		}
+	}
+
+	
+}

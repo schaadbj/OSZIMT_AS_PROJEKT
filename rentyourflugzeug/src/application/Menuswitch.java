@@ -1,69 +1,89 @@
 package application;
 
+import java.sql.SQLException;
+
 public class Menuswitch {
-	public static void main(String[][] flugzeug, String[][] kunde) {
-		int untermenu;
-		int hauptmenu=IO_MainMenu.hauptmenu();
+	public static void mainMenu() throws SQLException {
+		int hauptmenu=IO_Menu.hauptmenu();		
 		switch (hauptmenu) {
-			case 1 : //Objektverwaltung
-				untermenu=IO_MainMenu.menu_objverw();
-				switch (untermenu) {
-					case 1: //Objekt hinzufügen
-						IO_objverw.neuobj(flugzeug, kunde);
-					break;
-					case 2: //Objekt entfernen
-						IO_objverw.delobj(flugzeug, kunde);								
-					break;
-					case 3: //Ein Objekt anzeigen
-						IO_objverw.showobj(flugzeug, kunde);
-					break;
-					case 4: //Alle Objekte anzeigen
-						IO_objverw.showall(flugzeug, kunde);
-					break;
-					case 0: //beenden
-						Menuswitch.main(flugzeug, kunde);
-					break;
-					default:
-				}//end of switch untermenu
+			case 1 : //Flugzeugverwaltung
+				Menuswitch.fluverw();
 			break;
 			case 2 : //Kundenverwaltung
-				untermenu=IO_MainMenu.menu_kuverw();
-				switch (untermenu) {
-					case 1: //Objekt hinzufügen
-						IO_kuverw.neuobj(flugzeug, kunde);
-					break;
-					case 2: //Objekt entfernen
-						IO_kuverw.delobj(flugzeug, kunde);								
-					break;
-					case 3: //Ein Objekt anzeigen
-						IO_kuverw.showobj(flugzeug, kunde);
-					break;
-					case 4: //Alle Objekte anzeigen
-						IO_kuverw.showall(flugzeug, kunde);
-					break;
-					case 0: //beenden
-						Menuswitch.main(flugzeug, kunde);
-					break;
-					default:
-				}//end of switch untermenu
+				Menuswitch.kuverw();
 			break;
 			case 3 : //Vermietung
-				untermenu=IO_MainMenu.menu_verm();
-				switch (untermenu) {
-					case 1:
-						
-					break;
-					case 2:
-					
-					break;
-					case 0: //beenden
-						Menuswitch.main(flugzeug,  kunde);
-					break;
-				}
+				Menuswitch.verm();
 			break;
 			case 0: //beenden
+				System.out.print("\n\nBeendet...");
 			break;
 			default:
 		} //end of switch hauptmenu
-	}
+	}//end of method MainMenu
+	
+	public static void fluverw() throws SQLException {
+		int untermenu=IO_Menu.menu_fluverw();
+		switch (untermenu) {
+			case 1: //Objekt hinzufügen
+				IO_fluverw.neuobj();
+			break;
+			case 2: //Objekt entfernen
+				IO_fluverw.delobj();								
+			break;
+			case 3: //Ein Objekt anzeigen
+				IO_fluverw.showobj();
+			break;
+			case 4: //Alle Objekte anzeigen
+				IO_fluverw.showall();
+			break;
+			case 0: //beenden
+				Menuswitch.mainMenu();
+			break;
+			default:
+		}//end of switch untermenu
+	}//end of method fluverw
+	
+	public static void kuverw() throws SQLException {
+		int untermenu=IO_Menu.menu_kuverw();
+		switch (untermenu) {
+			case 1: //Objekt hinzufügen
+				IO_kuverw.neuobj();
+			break;
+			case 2: //Objekt entfernen
+				IO_kuverw.delobj();								
+			break;
+			case 3: //Ein Objekt anzeigen
+				IO_kuverw.showobj();
+			break;
+			case 4: //Alle Objekte anzeigen
+				IO_kuverw.showall();
+			break;
+			case 0: //beenden
+				Menuswitch.mainMenu();
+			break;
+			default:
+		}//end of switch untermenu
+	}//end of method kuverw
+	
+	public static void verm() throws SQLException {
+		int untermenu=IO_Menu.menu_verm();
+		switch (untermenu) {
+			case 1://Vermietung
+				IO_verm.vermietung();
+			break;
+			case 2://Rückgabe
+				IO_verm.ruckgabe();
+			break;
+			case 3://Suche (Kundennummer)
+				IO_verm.suche_knr();
+			break;
+			case 4://Suche (Flugzeug)
+				IO_verm.suche_fnr();
+			break;
+			case 0: //beenden
+				Menuswitch.mainMenu();
+			break;
+		}//end of switch untermenu
+	}//end of method verm
 }

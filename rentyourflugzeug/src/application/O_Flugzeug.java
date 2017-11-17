@@ -1,7 +1,7 @@
 package application;
 
 public class O_Flugzeug {
-	private int sitze, id;
+	private int sitze, id, idku;
 	private String modell;
 	private static int nextID=1;
 
@@ -32,7 +32,12 @@ public class O_Flugzeug {
 	public void setSitze(int sitze) {
 		this.sitze = sitze;
 	}
-	
+	public int getIdku() {
+		return idku;
+	}
+	public void setIdku(int idku) {
+		this.idku = idku;
+	}
 //---Methoden	
 	
 	
