@@ -1,0 +1,19 @@
+package application;
+
+import java.sql.SQLException;
+
+public class builder {
+
+	public static O_Flugzeug newflu(int id, String modell, int sitze) throws SQLException {
+		O_Flugzeug flugzeug = new O_Flugzeug(modell, sitze);
+		String newFlugzeug = Sqlquery.newFlugzeug(id, modell, sitze);
+		DBconnection.updateDB(newFlugzeug);
+		return flugzeug;
+	}
+	public static O_Kunde newku(int id, String nname, String vname, String str, int strnr, int plz, String ort) throws SQLException {
+		O_Kunde kunde = new O_Kunde(id, plz, strnr, vname, nname, str, ort);
+	    String newKunde = Sqlquery.newKunde(id, nname, vname, str, strnr, plz, ort);
+	    DBconnection.updateDB(newKunde);
+		return kunde;
+	}
+}

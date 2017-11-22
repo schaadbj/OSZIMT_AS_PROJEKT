@@ -41,9 +41,7 @@ public class IO_kuverw {
 		    }
 		
 		    //Kunden Objekt erstellen
-		    O_Kunde kunde = new O_Kunde(id, plz, strnr, vname, nname, str, ort);
-		    String newKunde = Sqlquery.newKunde(id, nname, vname, str, strnr, plz, ort);
-		    DBconnection.updateDB(newKunde);
+		    O_Kunde kunde=builder.newku(id, nname, vname, str, strnr, plz, ort);
 		    
 		    //Ausgabe Check
 		    System.out.println("\nSie haben folgenden Kunden hinzugefügt:");                                                     
@@ -58,8 +56,7 @@ public class IO_kuverw {
 		    int i=0, id = 0;
 		    
 		    //erzeuge ArrayList mit allen in DB(t_kunden) vorhandenen Einträgen
-		    String sqlquery = Sqlquery.getKunden();
-		    List<O_Kunde> kunden=DBconnection.showDBku(sqlquery);
+		    List<O_Kunde> kunden=builder.getku();
 		    
 		    
 		    System.out.println("\n----------Kunde entfernen-----------");
@@ -81,8 +78,7 @@ public class IO_kuverw {
 							switch (del) {
 							case 'y' : //wird gelöscht
 								i=1;
-								String delete = Sqlquery.delKunde(id);
-								DBconnection.updateDB(delete);
+								builder.delku(id);
 								System.out.println("Erfolgreich gelöscht");
 								break;
 							case 'n' : //wird nicht gelöscht
@@ -112,8 +108,7 @@ public class IO_kuverw {
 			int i=0;
 			
 			//erzeuge ArrayList mit allen in DB(t_kunden) vorhandenen Einträgen
-			String sqlquery = Sqlquery.getKunden();
-			List<O_Kunde> kunden=DBconnection.showDBku(sqlquery);
+			List<O_Kunde> kunden=builder.getku();
 			
 			
 			System.out.println("\n----------Anzeigen eines Kunden-----------");
@@ -143,8 +138,8 @@ public class IO_kuverw {
 //====Alle Kunden anzeigen====			
 		public static void showall() throws SQLException {
 			//erzeuge ArrayList mit allen in DB(t_kunden) vorhandenen Einträgen
-			String allkunden = Sqlquery.getKunden();
-			List<O_Kunde> kunden=DBconnection.showDBku(allkunden);
+			List<O_Kunde> kunden=builder.getku();
+			
 			System.out.println("\n----------Anzeigen aller Kunden-----------");
 			for (O_Kunde kunde: kunden) { //foreach Schleife, für jedes Kundenobjekt in Array Kunden
 					System.out.println("Kundennummer: "+kunde.getId());

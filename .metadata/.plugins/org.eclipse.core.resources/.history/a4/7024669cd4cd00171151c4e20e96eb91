@@ -1,0 +1,15 @@
+package application;
+
+import javafx.fxml.FXML;
+
+import javafx.scene.control.MenuBar;
+
+import javafx.scene.layout.Pane;
+
+public class MainMenuController {
+	@FXML
+	private Pane pane;
+	@FXML
+	private MenuBar menubar;
+
+}

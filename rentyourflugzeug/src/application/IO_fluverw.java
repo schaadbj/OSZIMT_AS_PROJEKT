@@ -16,8 +16,7 @@ public class IO_fluverw {
 	    int sitze=sc.nextInt();
 	    
 	    //nächste freie ID wird aus DB geladen
-	    String sqlquery = Sqlquery.getFlugzeuge();
-	    List<O_Flugzeug> flugzeuge=DBconnection.showDBflu(sqlquery);
+	    List<O_Flugzeug> flugzeuge=builder.getflu();
 	    
 	    int id=1;
 	    try {
@@ -27,10 +26,8 @@ public class IO_fluverw {
 	    	System.out.println("\nDies ist der erste Datensatz. ID=1");
 	    }
 	    //Flugzeug Objekt erstellen
-	    O_Flugzeug flugzeug = new O_Flugzeug(modell, sitze);
-	    String newFlugzeug = Sqlquery.newFlugzeug(id, modell, sitze);
-	    DBconnection.updateDB(newFlugzeug);
-	   
+	    O_Flugzeug flugzeug = builder.newflu(id, modell, sitze);
+	    
 	    //Ausgabe Check
 	    System.out.println("\nSie haben folgendes Flugzeug hinzugefügt:");                                                     //--Ausgabe Beginn
 	    System.out.println("Flugzeugnummer: "+flugzeug.getId());
@@ -43,9 +40,8 @@ public class IO_fluverw {
 	public static void delobj() throws SQLException {
 		int i=0, id=0;
 		
-		//erzeuge ArrayList mit allen in DB(t_kunden) vorhandenen Einträgen
-	    String sqlquery = Sqlquery.getFlugzeuge();
-	    List<O_Flugzeug> flugzeuge=DBconnection.showDBflu(sqlquery);
+		//erzeuge ArrayList mit allen in DB(t_flugzeuge) vorhandenen Einträgen
+		List<O_Flugzeug> flugzeuge=builder.getflu();
 	    
 		
 		System.out.println("\n----------Flugzeug entfernen-----------");                                            	
@@ -68,8 +64,7 @@ public class IO_fluverw {
 	    		    	switch (del) {
 	    		    	case 'y' ://wird gelöscht
 	    			    	i=1;
-	    			    	String delete = Sqlquery.delFlugzeug(id);
-	    			    	DBconnection.updateDB(delete);
+	    			    	builder.delflu(id);
 	    			    	System.out.println("Erfolgreich gelöscht");
 	    			    break;
 	    		    	case 'n' ://wird nicht gelöscht
@@ -97,9 +92,8 @@ public class IO_fluverw {
 		public static void showobj() throws SQLException {
 			int i=0;
 			
-			//erzeuge ArrayList mit allen in DB(t_kunden) vorhandenen Einträgen
-			String sqlquery = Sqlquery.getFlugzeuge();
-			List<O_Flugzeug> flugzeuge=DBconnection.showDBflu(sqlquery);
+			//erzeuge ArrayList mit allen in DB(t_flugzeuge) vorhandenen Einträgen
+			List<O_Flugzeug> flugzeuge=builder.getflu();
 			   
 			
 			System.out.println("\n----------Anzeigen eines Flugzeugs-----------");
@@ -128,9 +122,8 @@ public class IO_fluverw {
 
 	
 		public static void showall() throws SQLException {
-			//erzeuge ArrayList mit allen in DB(t_kunden) vorhandenen Einträgen
-			String sqlquery = Sqlquery.getFlugzeuge();
-			List<O_Flugzeug> flugzeuge=DBconnection.showDBflu(sqlquery);
+			//erzeuge ArrayList mit allen in DB(t_flugzeuge) vorhandenen Einträgen
+			List<O_Flugzeug> flugzeuge=builder.getflu();
 						
 			System.out.println("\n----------Anzeigen aller Flugzeuge-----------");
 		    for (O_Flugzeug flugzeug: flugzeuge) {

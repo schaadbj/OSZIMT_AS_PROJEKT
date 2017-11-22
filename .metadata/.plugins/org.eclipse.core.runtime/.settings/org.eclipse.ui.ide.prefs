@@ -5,3 +5,4 @@ eclipse.preferences.version=1
 platformState=1510658484413
 quickStart=false
 tipsAndTricks=true
+unassociatedEditorStrategy=org.eclipse.ui.ide.askUserForUnassociatedEditor

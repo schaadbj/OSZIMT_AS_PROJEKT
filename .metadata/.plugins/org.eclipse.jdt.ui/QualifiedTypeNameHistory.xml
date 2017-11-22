@@ -7,6 +7,8 @@
 <fullyQualifiedTypeName name="application.Menuswitch"/>
 <fullyQualifiedTypeName name="application.IO_MainMenu"/>
 <fullyQualifiedTypeName name="application.O_Kunde"/>
-<fullyQualifiedTypeName name="java.sql.ResultSet"/>
 <fullyQualifiedTypeName name="application.DBconnection"/>
+<fullyQualifiedTypeName name="java.sql.ResultSet"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.List"/>
 </qualifiedTypeNameHistroy>

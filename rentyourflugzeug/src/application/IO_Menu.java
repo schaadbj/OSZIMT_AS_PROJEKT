@@ -11,9 +11,6 @@ public class IO_Menu {
 	    System.out.println("1. Mietobjektverwaltung");
 	    System.out.println("2. Kundenverwaltung");
 	    System.out.println("3. Flugzeugvermietung");
-	    System.out.println("4. Menüpunkt");
-	    System.out.println("5. Menüpunkt");
-	    System.out.println("6. Menüpunkt");
 	    System.out.println("0. Beenden");
 	    int menu=sc.nextInt();
 	    
