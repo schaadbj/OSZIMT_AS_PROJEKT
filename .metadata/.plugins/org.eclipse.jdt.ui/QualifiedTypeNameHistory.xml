@@ -14,4 +14,6 @@
 <fullyQualifiedTypeName name="javafx.collections.ObservableList"/>
 <fullyQualifiedTypeName name="javafx.collections.FXCollections"/>
 <fullyQualifiedTypeName name="java.lang.reflect.InvocationTargetException"/>
+<fullyQualifiedTypeName name="application.chooseController"/>
+<fullyQualifiedTypeName name="application.Verm"/>
 </qualifiedTypeNameHistroy>
