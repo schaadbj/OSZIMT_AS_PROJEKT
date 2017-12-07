@@ -13,7 +13,6 @@ import javafx.scene.control.TitledPane;
 import javafx.stage.Stage;
 
 public class Main extends Application{
-	//Auswahl GUI/Console, SQL/XML
 	public void start(Stage chooseUI) {
 		try {
 			TitledPane root = (TitledPane) FXMLLoader.load(getClass().getResource("choose.fxml"));

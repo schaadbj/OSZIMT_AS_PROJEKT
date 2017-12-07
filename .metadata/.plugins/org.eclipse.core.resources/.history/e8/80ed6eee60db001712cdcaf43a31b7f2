@@ -7,11 +7,10 @@ import application.Objects.Helper;
 
 public class Menu {
 	static Scanner sc = new Scanner(System.in);
-	//HAUPTMENÜ====================
 	public static int hauptmenu() {
 		System.out.println("==========RentYourFlugzeug==========\n______________________________________\n");
 	    System.out.println("----Menü----");
-	    System.out.println("1. Flugzeugverwaltung");
+	    System.out.println("1. Mietobjektverwaltung");
 	    System.out.println("2. Kundenverwaltung");
 	    System.out.println("3. Flugzeugvermietung");
 	    System.out.println("0. Beenden");
@@ -33,7 +32,6 @@ public class Menu {
 //-----------------------------------------------
 //--------------UNTERMENÜS-----------------------
 //-----------------------------------------------	
-	//FLUGZEUGVERWALTUNG==============
 	public static int menu_fluverw() {
 		System.out.println("\n==========Flugzeugverwaltung==========\n________________________________________\n");
 	    System.out.println("----Menü----");
@@ -54,7 +52,6 @@ public class Menu {
 	    return menu;	    
 	}//end of method menu_objverw
 	
-	//KUNDENVERWALTUNG===============
 	public static int menu_kuverw() {
 		System.out.println("\n==========Kundenverwaltung==========\n________________________________________\n");
 	    System.out.println("----Menü----");
@@ -75,7 +72,6 @@ public class Menu {
 	    return menu;	    
 	}//end of method kuverw
 	
-	//VERMIETUNG===================
 	public static int menu_verm() {
 		System.out.println("\n==========Flugzeugvermietung==========\n________________________________________\n");
 		System.out.println("----Menü----");
@@ -95,11 +91,11 @@ public class Menu {
 	    }//end of while    
 		return menu;
 	}
-//----------------------------------------------
-//--FORTFAHREN
-//----------------------------------------------
-	//im MAIN MENU
-	public static void fortfahrenMainMenu(Helper help) throws SQLException {
+ //----------------------------------------------
+//
+//
+	static	Helper help = new Helper(); //löschen später!!!!!!!
+	public static void fortfahrenMainMenu() throws SQLException {
 		int i;
 		
 		do {
@@ -120,7 +116,6 @@ public class Menu {
 		}while (i==0);
 	}//end of method fortfahrenMainMenu
 	
-	//in FLUGZEUGVERWALTUNG
 	public static void fortfahrenfluverw(Helper help) throws SQLException {
 		int i;
 		do {
@@ -141,7 +136,6 @@ public class Menu {
 		}while (i==0);
 	}//end of method fortfahrenfluverw
 	
-	//in KUNDENVERWALTUNG
 	public static void fortfahrenkuverw(Helper help) throws SQLException {
 		int i;
 		do {
@@ -162,7 +156,6 @@ public class Menu {
 		}while (i==0);
 	}//end of method fortfahrenkuverw
 	
-	//in VERMIETUNG
 	public static void fortfahrenverm(Helper help) throws SQLException {
 		int i;
 		do {

@@ -98,7 +98,6 @@ public class Menu {
 //----------------------------------------------
 //--FORTFAHREN
 //----------------------------------------------
-	//im MAIN MENU
 	public static void fortfahrenMainMenu(Helper help) throws SQLException {
 		int i;
 		
@@ -120,7 +119,6 @@ public class Menu {
 		}while (i==0);
 	}//end of method fortfahrenMainMenu
 	
-	//in FLUGZEUGVERWALTUNG
 	public static void fortfahrenfluverw(Helper help) throws SQLException {
 		int i;
 		do {
@@ -141,7 +139,6 @@ public class Menu {
 		}while (i==0);
 	}//end of method fortfahrenfluverw
 	
-	//in KUNDENVERWALTUNG
 	public static void fortfahrenkuverw(Helper help) throws SQLException {
 		int i;
 		do {
@@ -162,7 +159,6 @@ public class Menu {
 		}while (i==0);
 	}//end of method fortfahrenkuverw
 	
-	//in VERMIETUNG
 	public static void fortfahrenverm(Helper help) throws SQLException {
 		int i;
 		do {

@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import application.Objects.Helper;
 
 public class Menuswitch {
-//HAUPTMENÜ=======================================================
 	public static void mainMenu(Helper help) throws SQLException {
 		int hauptmenu=Menu.hauptmenu();		
 		switch (hauptmenu) {
