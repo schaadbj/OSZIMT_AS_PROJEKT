@@ -1,0 +1,34 @@
+package application.Objekte;
+
+public class Helper {
+	private String look, save;
+	int id;
+	
+	public Helper() {}
+	public Helper(int id) {
+		this.id=id;
+	}
+	public Helper(String look, String save, int id) {
+		this.look=look;
+		this.save=save;
+		this.id=id;
+	}
+
+	public int getID() {
+		return id;
+	}
+	public void setLook(String look) {
+		this.look=look;
+	}
+	public void setSave(String save) {
+		this.save=save;	
+	}
+	
+	public String getLook() {
+		return look;
+	}
+	public String getSave() {
+		return save;
+	}
+	
+}

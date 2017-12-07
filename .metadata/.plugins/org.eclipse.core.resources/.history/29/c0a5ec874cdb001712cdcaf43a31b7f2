@@ -1,0 +1,73 @@
+package application;
+
+import java.util.List;
+import java.util.Scanner;
+
+public class Fluverw {
+	static Scanner sc = new Scanner(System.in);
+	//====Neues Objekt====	
+	public static String new_getModell() {
+		System.out.print("\nGeben Sie das Flugzeugmodell ein: ");
+	    String modell=sc.next();
+	    return modell;
+	}//end of method neuobj
+	public static int new_getSitze()  {
+	    System.out.print("\nGeben Sie die Sitzplätze des Flugzeugs ein: ");
+	    int sitze=sc.nextInt();
+	    return sitze;
+	}//end of method neuobj
+	
+	public static void newflu(Helper help) {
+		String save = help.getSave();
+		String look = help.getLook();
+		System.out.println("look="+look);
+		System.out.print("save="+save);
+	//GUI + DB=================================================
+		if (save.equals("sql") && look.equals("gui")) {								//TODO
+			
+			System.out.print("\nSQL+GUI");
+		}
+	//GUI + XML================================================
+		else if (save.equals("xml") && look.equals("gui")) {						//TODO
+		
+			System.out.print("\nXML+GUI");
+		}
+	//Konsole + DB=============================================
+		else if (save.equals("sql") && look.equals("con")) {
+			//Eingaben
+			System.out.println("\n----------Neues Flugzeug hinzufügen-----------"); 
+			String modell=Fluverw.new_getModell();
+			int sitze=Fluverw.new_getSitze();
+			//ID aus Datenbank einlesen
+			int id=1;
+			List<O_Flugzeug> flugzeuge=builder.getflu();
+		    try {
+		    	id=flugzeuge.get(flugzeuge.size()-1).getId()+1;
+		    }
+		    catch (ArrayIndexOutOfBoundsException e) {
+		    	System.out.println("\nDies ist der erste Datensatz. ID=1");
+		    }
+		    //Objekt erstellen
+			O_Flugzeug flugzeug = objBuilder.newflu(modell, sitze, id);
+			//Speichern in DB
+			String newFlugzeug = Sqlquery.newFlugzeug(id, modell, sitze);
+			DBconnection.updateDB(newFlugzeug);			
+			//Ausgabe
+			System.out.println("\nSie haben folgendes Flugzeug hinzugefügt:");                                                  
+	    	System.out.println("Flugzeugnummer: "+flugzeug.getId());
+	    	System.out.println("Modell: "+flugzeug.getModell());
+	    	System.out.println("Sitzplätze: "+flugzeug.getSitze()); 				
+		}
+	//Konsole + XML============================================
+		else if (save.equals("xml") && look.equals("con")) {					//TODO
+		
+			
+		}
+		
+		
+	}
+	
+	
+	
+	
+}

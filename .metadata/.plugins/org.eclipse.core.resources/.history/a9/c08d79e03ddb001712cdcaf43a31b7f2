@@ -1,0 +1,29 @@
+package application;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Scanner;
+
+public class fluverwCon {
+	static Scanner sc = new Scanner(System.in);
+	//====Neues Objekt====	
+	public static void new_getModell() {
+		//Eingaben
+		                                           //--Eingabe Beginn
+	    System.out.print("\nGeben Sie das Flugzeugmodell ein: ");
+	    String modell=sc.next();
+	    System.out.print("\nGeben Sie die Sitzplätze des Flugzeugs ein: ");
+	    int sitze=sc.nextInt();
+	    IO_Menu.fortfahrenMainMenu();
+	}//end of method neuobj
+	public static void new_getSitze()  {
+		//Eingaben
+		System.out.println("\n----------Neues Flugzeug hinzufügen-----------");                                            //--Eingabe Beginn
+	    System.out.print("\nGeben Sie das Flugzeugmodell ein: ");
+	    String modell=sc.next();
+	    System.out.print("\nGeben Sie die Sitzplätze des Flugzeugs ein: ");
+	    int sitze=sc.nextInt();
+	    IO_Menu.fortfahrenMainMenu();
+	}//end of method neuobj
+	
+}

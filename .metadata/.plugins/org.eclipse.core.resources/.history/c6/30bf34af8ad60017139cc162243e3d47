@@ -1,0 +1,54 @@
+/*package application;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+import javafx.event.ActionEvent;
+
+import javafx.scene.control.TitledPane;
+
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+public class Controller_chooseUI {
+	@FXML
+	private TitledPane t_pane;
+	@FXML
+	private AnchorPane a_pane;
+	@FXML
+	private Button button_konsole;
+	@FXML
+	private Button button_gui;
+	@FXML
+	private AnchorPane pane_guitui;
+	@FXML
+	private AnchorPane pane_save;
+	
+	
+	
+
+	// Event Listener on Button[#button_konsole].onAction
+	@FXML
+	public void button_kon_klick(ActionEvent event) throws SQLException {
+		pane_guitui.setVisible(false);
+		pane_save.setVisible(true);
+	}
+	// Event Listener on Button[#button_gui].onAction
+	@FXML
+	public void button_gui_klick(ActionEvent event) throws IOException {
+		pane_guitui.setVisible(false);
+		pane_save.setVisible(true);		
+		
+		/*FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/application/MainMenu.fxml"));
+		Parent content = (Parent) loader.load();
+		Stage stage = new Stage();
+		Stage oldstage = (Stage) button_gui.getScene().getWindow();
+		oldstage.close();
+		stage.setScene(new Scene(content));
+		stage.show();	*/
+	}
+}

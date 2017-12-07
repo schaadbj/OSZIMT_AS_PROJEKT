@@ -1,0 +1,43 @@
+package application.Objects;
+
+public class Flugzeug {
+	private int sitze, id, idku;
+	private String modell;
+
+//---Konstruktor
+	public Flugzeug() {}
+	public Flugzeug(int id, String modell, int sitze) {
+		this.id = id;
+		this.modell = modell;
+		this.sitze = sitze;		
+	}
+//---Getter & Setter	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getModell() {
+		return modell;
+	}
+	public void setModell(String modell) {
+		this.modell = modell;
+	}
+	public int getSitze() {
+		return sitze;
+	}
+	public void setSitze(int sitze) {
+		this.sitze = sitze;
+	}
+	public int getIdku() {
+		return idku;
+	}
+	public void setIdku(int idku) {
+		this.idku = idku;
+	}
+//---Methoden	
+	
+	
+	
+}

@@ -1,0 +1,133 @@
+package application;
+
+
+import java.sql.SQLException;
+import java.util.List;
+
+public class Menuswitch {
+	public static void mainMenu() throws SQLException {
+		int hauptmenu=IO_Menu.hauptmenu();		
+		switch (hauptmenu) {
+			case 1 : //Flugzeugverwaltung
+				Menuswitch.fluverw();
+			break;
+			case 2 : //Kundenverwaltung
+				Menuswitch.kuverw();
+			break;
+			case 3 : //Vermietung
+				Menuswitch.verm();
+			break;
+			case 0: //beenden
+				System.out.print("\n\nBeendet...");
+			break;
+			default:
+		} //end of switch hauptmenu
+	}//end of method MainMenu
+	
+	public static void fluverw() throws SQLException {
+		int untermenu=IO_Menu.menu_fluverw();
+		helper helper = new helper();
+		switch (untermenu) {
+			case 1: //Objekt hinzufügen
+				String save = helper.getSave();
+				String look = helper.getLook();
+				if (save.equals("sql") && look.equals("gui")) {
+				//GUI + DB
+					System.out.print("\nSQL+GUI");
+				}
+				else if (save.equals("xml") && look.equals("gui")) {
+				//GUI + XML
+					System.out.print("\nXML+GUI");
+				}
+				else if (save.equals("sql") && look.equals("con")) {
+				//Konsole + DB
+					//Eingaben
+					System.out.println("\n----------Neues Flugzeug hinzufügen-----------"); 
+					String modell=fluverwCon.new_getModell();
+					int sitze=fluverwCon.new_getSitze();
+					//ID aus Datenbank einlesen
+					int id=1;
+					List<O_Flugzeug> flugzeuge=builder.getflu();
+				    try {
+				    	id=flugzeuge.get(flugzeuge.size()-1).getId()+1;
+				    }
+				    catch (ArrayIndexOutOfBoundsException e) {
+				    	System.out.println("\nDies ist der erste Datensatz. ID=1");
+				    }
+				    //Objekt erstellen
+					O_Flugzeug flugzeug = objBuilder.newflu(modell, sitze, id);
+					//Speichern in DB
+					String newFlugzeug = Sqlquery.newFlugzeug(id, modell, sitze);
+					DBconnection.updateDB(newFlugzeug);			
+					//Ausgabe
+					System.out.println("\nSie haben folgendes Flugzeug hinzugefügt:");                                                     //--Ausgabe Beginn
+			    	System.out.println("Flugzeugnummer: "+flugzeug.getId());
+			    	System.out.println("Modell: "+flugzeug.getModell());
+			    	System.out.println("Sitzplätze: "+flugzeug.getSitze()); 				
+				}
+				else if (save.equals("xml") && look.equals("con")) {
+				//Konsole + XML
+					
+				}
+				
+				
+			break;
+			case 2: //Objekt entfernen
+				IO_fluverw.delobj();								
+			break;
+			case 3: //Ein Objekt anzeigen
+				IO_fluverw.showobj();
+			break;
+			case 4: //Alle Objekte anzeigen
+				IO_fluverw.showall();
+			break;
+			case 0: //beenden
+				Menuswitch.mainMenu();
+			break;
+			default:
+		}//end of switch untermenu
+	}//end of method fluverw
+	
+	public static void kuverw() throws SQLException {
+		int untermenu=IO_Menu.menu_kuverw();
+		switch (untermenu) {
+			case 1: //Objekt hinzufügen
+				IO_kuverw.neuobj();
+			break;
+			case 2: //Objekt entfernen
+				IO_kuverw.delobj();								
+			break;
+			case 3: //Ein Objekt anzeigen
+				IO_kuverw.showobj();
+			break;
+			case 4: //Alle Objekte anzeigen
+				IO_kuverw.showall();
+			break;
+			case 0: //beenden
+				Menuswitch.mainMenu();
+			break;
+			default:
+		}//end of switch untermenu
+	}//end of method kuverw
+	
+	public static void verm() throws SQLException {
+		int untermenu=IO_Menu.menu_verm();
+		switch (untermenu) {
+			case 1://Vermietung
+				IO_verm.vermietung();
+			break;
+			case 2://Rückgabe
+				IO_verm.ruckgabe();
+			break;
+			case 3://Suche (Kundennummer)
+				IO_verm.suche_knr();
+			break;
+			case 4://Suche (Flugzeug)
+				IO_verm.suche_fnr();
+			break;
+			case 0: //beenden
+				Menuswitch.mainMenu();
+			break;
+		}//end of switch untermenu
+	}//end of method verm
+}

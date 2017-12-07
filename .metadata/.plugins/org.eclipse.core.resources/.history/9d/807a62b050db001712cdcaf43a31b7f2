@@ -1,0 +1,12 @@
+package application;
+
+public class objBuilder {
+
+	public static O_Flugzeug newflu(String modell, int sitze, int id) {
+		O_Flugzeug flugzeug = new O_Flugzeug(id, modell, sitze);
+		
+		
+		return flugzeug;
+		
+	}
+}

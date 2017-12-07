@@ -1,0 +1,192 @@
+//muss noch für Objekte und DB aktualisiert werden
+
+
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Scanner;
+
+import application.DBconnection;
+import application.IO_Menu;
+import application.Sqlquery;
+import application.Objects.O_Flugzeug;
+import application.Objects.O_Kunde;
+
+public class IO_verm {
+	static Scanner sc = new Scanner(System.in);
+//---Vermietung
+	public static void vermietung() throws SQLException {
+		int i=0;
+		
+		//erzeuge ArrayList mit allen in DB(t_kunden) vorhandenen Einträgen
+		String sqlqueryku = Sqlquery.getKunden();
+		List<O_Kunde> kunden=DBconnection.showDBku(sqlqueryku);
+		//erzeuge ArrayList mit allen in DB(t_flugzeuge) vorhandenen Einträgen
+		String sqlqueryflu = Sqlquery.getFlugzeuge();
+		List<O_Flugzeug> flugzeuge=DBconnection.showDBflu(sqlqueryflu);
+		
+		System.out.println("\n----------Vermietung-----------");
+		System.out.print("\nGeben Sie die Kundennummer ein: ");
+		int idku=sc.nextInt();
+		
+		
+		while (i==0) {	//Überprüfung ob Kundenummer vorhanden
+			for (O_Kunde kunde: kunden) { //foreach Schleife, für jedes Kundenobjekt in Array Kunden
+				if (idku==kunde.getId()) { //wenn Kundenobjekt mit gesuchter ID gefunden wird
+					i=1;
+					System.out.println("Kundennummer: "+idku);
+					System.out.println("Name: "+kunde.getNname()+ ", " +kunde.getVname());
+					System.out.println("Adresse: "+kunde.getStr()+" "+kunde.getStrnr()+", "+kunde.getPlz()+" "+kunde.getOrt());
+
+					System.out.print("\nGeben Sie die Flugzeugnummer ein: ");
+					int idflu=sc.nextInt();
+					i=0;
+					while (i==0) {  //Überprüfung ob Flugzeugnummer vorhanden
+						for (O_Flugzeug flugzeug: flugzeuge) {
+							if (idflu==flugzeug.getId()) {
+								i=1;
+								System.out.println("Flugzeugnummer: "+ idflu );
+				    		    System.out.println("Modell: "+ flugzeug.getModell());
+				    		    System.out.println("Sitzplätze: "+ flugzeug.getSitze());
+				    		    
+				    		    //schreibt den Wert von idku in t_flugzeuge an den Datensatz pk_id=idflu
+				    		    String verm=Sqlquery.verm(idku, idflu);
+				    		    DBconnection.updateDB(verm);
+				    		    System.out.println("\nSie haben Flugzeug "+idflu+" an Kunde "+idku+" vermietet.");
+				    		    break;
+							}//end of if
+						}//end of for
+						if (i==0) {
+							System.out.print("\nDie eingegebene Flugzeugnummer existiert nicht. Geben Sie eine andere ein: (0=Beenden)");
+							idflu=sc.nextInt();
+							
+						}//end of if
+						if (idflu==0) break; //wenn User 0=beenden gewählt hat
+					} // end of while 
+					
+					break;
+				}//end of if
+			}//end of for
+			if (i==0) {
+				System.out.print("\nDie eingegebene Kundenummer existiert nicht. Geben Sie eine andere ein: (0=Beenden)");
+				idku=sc.nextInt();
+			}//end of if			
+			if (idku==0) break; //wenn User 0=beenden gewählt hat
+		}//end of while		
+		IO_Menu.fortfahrenverm();
+	}//end of method vermietung
+//---Rückgabe
+	public static void ruckgabe() throws SQLException {
+		int i=0, idku;
+		//erzeuge ArrayList mit allen in DB(t_flugzeuge) vorhandenen Einträgen
+		String sqlqueryflu = Sqlquery.getFlugzeuge();
+		List<O_Flugzeug> flugzeuge=DBconnection.showDBflu(sqlqueryflu);
+		
+		
+		System.out.println("\n----------Rückgabe-----------");
+		System.out.print("\nGeben sie die Flugzeugnummer ein: ");
+		int idflu=sc.nextInt();
+		while (i==0) { 
+			for (O_Flugzeug flugzeug: flugzeuge) {
+				if (idflu==flugzeug.getId()) {
+					i=1;
+					idku=flugzeug.getIdku();
+					if (idku==0) System.out.println("\nDas Flugzeug befindet sich im Lager");
+					else {
+						System.out.println("Flugzeugnummer: "+ idflu );
+						System.out.println("Modell: "+ flugzeug.getModell());
+						System.out.println("Sitzplätze: "+ flugzeug.getSitze());
+						System.out.println("Vermietet an: "+ flugzeug.getIdku());
+						String ruckgabe=Sqlquery.ruckgabe(idflu);
+						DBconnection.updateDB(ruckgabe);
+						System.out.println("\nFlugzeug "+idflu+" wurde von Kunde "+flugzeug.getIdku()+" zurückgegeben.");
+					}
+	    		    break;
+				}//end of if
+			}//end of for
+			if (i==0) {
+				System.out.print("\nDie eingegebene Flugzeugnummer existiert nicht. Geben Sie eine andere ein: (0=Beenden)");
+				idflu=sc.nextInt();
+			}//end of if
+			if (idflu==0) break; //wenn User 0=beenden gewählt hat
+		} // end of while 
+		IO_Menu.fortfahrenverm();
+	}//end of method ruckgabe
+//---Suche (Kundennumer)
+	public static void suche_knr() throws SQLException {
+		//erzeuge ArrayList mit allen in DB(t_kunden) vorhandenen Einträgen
+		String sqlqueryku = Sqlquery.getKunden();
+		List<O_Kunde> kunden=DBconnection.showDBku(sqlqueryku);
+		//erzeuge ArrayList mit allen in DB(t_kunden) vorhandenen Einträgen
+		String sqlqueryflu = Sqlquery.getFlugzeuge();
+		List<O_Flugzeug> flugzeuge=DBconnection.showDBflu(sqlqueryflu);
+		
+		System.out.println("\n----------Suche (Kundennummer)-----------");
+		System.out.print("\nGeben Sie die Kundennummer ein:");
+		int idku=sc.nextInt();
+		int i=0;
+		while (i==0) {	
+			for (O_Kunde kunde: kunden) { //foreach Schleife, für jedes Kundenobjekt in Array Kunden
+				if (idku==kunde.getId()) { //wenn Kundenobjekt mit gesuchter ID gefunden wird
+					i=1;
+					System.out.println("\nFolgende Flugzeuge wurden an "+kunde.getNname()+", "+kunde.getVname()+" (#"+kunde.getId()+") vermietet:");
+					for (O_Flugzeug flugzeug: flugzeuge) {
+						if (idku==flugzeug.getIdku()) {
+							i=1;
+							System.out.println("Flugzeugnummer: "+ flugzeug.getId() );
+			    		    System.out.println("Modell: "+ flugzeug.getModell());
+			    		    System.out.println("Sitzplätze: "+ flugzeug.getSitze());
+			    		    break;
+						}//end of if
+					}//end of for
+					break;
+				}//end of if
+			}//end of for
+			if (i==0) {
+				System.out.print("\nDie eingegebene Kundenummer existiert nicht. Geben Sie eine andere ein: (0=Beenden)");
+				idku=sc.nextInt();
+			}//end of if			
+			if (idku==0) break; //wenn User 0=beenden gewählt hat
+		}//end of while
+		IO_Menu.fortfahrenverm();	
+	}//end of method suche_knr
+//---Suche (Flugzeugnummer)
+	public static void suche_fnr() throws SQLException {
+		//erzeuge ArrayList mit allen in DB(t_kunden) vorhandenen Einträgen
+		String sqlqueryku = Sqlquery.getKunden();
+		List<O_Kunde> kunden=DBconnection.showDBku(sqlqueryku);
+		//erzeuge ArrayList mit allen in DB(t_kunden) vorhandenen Einträgen
+		String sqlqueryflu = Sqlquery.getFlugzeuge();
+		List<O_Flugzeug> flugzeuge=DBconnection.showDBflu(sqlqueryflu);
+		
+		
+		System.out.println("\n----------Suche (Flugzeugnummer)-----------");
+		System.out.print("\nGeben Sie die Flugzeugnummer ein:");
+		int idflu=sc.nextInt();
+		int i=0;
+		//Überprüfung ob Flugzeugnummer vorhanden
+		while (i==0) { 
+			for (O_Flugzeug flugzeug: flugzeuge) {
+				if (idflu==flugzeug.getId()) {
+					i=1;
+					int idku=flugzeug.getIdku();
+					for (O_Kunde kunde: kunden) { //foreach Schleife, für jedes Kundenobjekt in Array Kunden
+						if (idku==kunde.getId()) { //wenn Kundenobjekt mit gesuchter ID gefunden wird
+							System.out.println("\nDas Flugzeug "+flugzeug.getModell()+" (#"+flugzeug.getId()+") wurde an "+kunde.getNname()+", "+kunde.getVname()+" (#"+kunde.getId()+") vermietet");
+						}//end of if
+						else {
+							System.out.println("\nDas Flugzeug "+flugzeug.getModell()+" (#"+flugzeug.getId()+") ist im Lager");
+						}//end of else
+					}//end of for
+	    		    break;
+				}//end of if
+			}//end of for
+			if (i==0) {
+				System.out.print("\nDie eingegebene Flugzeugnummer existiert nicht. Geben Sie eine andere ein: (0=Beenden)");
+				idflu=sc.nextInt();
+			}//end of if
+			if (idflu==0) break; //wenn User 0=beenden gewählt hat
+		} // end of while 
+		IO_Menu.fortfahrenverm();
+	}//end of method suche_fnr
+}

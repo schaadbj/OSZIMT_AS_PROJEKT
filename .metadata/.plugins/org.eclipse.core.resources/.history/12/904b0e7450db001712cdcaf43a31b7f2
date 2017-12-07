@@ -1,0 +1,55 @@
+package application;
+
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Scanner;
+
+public class Fluverw {
+	static Scanner sc = new Scanner(System.in);
+
+// CONSOLE + SQL =========================	
+	public static void new_con_sql() throws SQLException {
+		//Eingaben
+		System.out.println("\n----------Neues Flugzeug hinzufügen-----------"); 
+		System.out.print("\nGeben Sie das Flugzeugmodell ein: ");
+	    String modell=sc.next();
+		System.out.print("\nGeben Sie die Sitzplätze des Flugzeugs ein: ");
+	    int sitze=sc.nextInt();
+	    
+		
+		//ID aus Datenbank einlesen
+		int id=1;
+		List<O_Flugzeug> flugzeuge=builder.getflu();
+	    try {
+	    	id=flugzeuge.get(flugzeuge.size()-1).getId()+1;
+	    }
+	    catch (ArrayIndexOutOfBoundsException e) {
+	    	System.out.println("\nDies ist der erste Datensatz. ID=1");
+	    }
+	    //Objekt erstellen
+		O_Flugzeug flugzeug = objBuilder.newflu(modell, sitze, id);
+		//Speichern in DB
+		String newFlugzeug = Sqlquery.newFlugzeug(id, modell, sitze);
+		DBconnection.updateDB(newFlugzeug);			
+		//Ausgabe
+		System.out.println("\nSie haben folgendes Flugzeug hinzugefügt:");                                                  
+    	System.out.println("Flugzeugnummer: "+flugzeug.getId());
+    	System.out.println("Modell: "+flugzeug.getModell());
+    	System.out.println("Sitzplätze: "+flugzeug.getSitze()); 
+	}
+// CONSOLE + XML =========================	
+	public static void new_con_xml() {
+		
+	}
+// GUI + SQL =============================	
+	public static void new_gui_sql() {
+		
+	}
+// GUI + XML =============================	
+	public static void new_gui_xml() {
+		
+	}
+	
+	
+}

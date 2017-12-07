@@ -1,0 +1,109 @@
+package application;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Scanner;
+
+public class Kuverw {
+	static Scanner sc = new Scanner(System.in);
+//NEUER KUNDE
+	// CONSOLE + SQL =========================	
+	public static void new_con_sql() throws SQLException {
+		//Eingaben
+		System.out.println("\n----------Neuen Kunden hinzufügen-----------");                                           
+	    System.out.print("\nVorname: ");
+	    String vname=sc.next();
+	    System.out.print("\nNachname: ");
+	    String nname=sc.next();
+	    System.out.print("\n---Adresse--- ");
+	    System.out.print("\nStraße: ");
+	    String str=sc.next();
+	    System.out.print("\nNummer: ");
+	    int strnr=sc.nextInt();
+	    System.out.print("\nPLZ: ");
+	    int plz=sc.nextInt();
+	    System.out.print("\nOrt: ");
+	    String ort=sc.next();
+	    
+	  //nächste freie ID wird aus DB geladen
+	    List<O_Kunde> kunden=builder.getku();
+	    int id=1;
+	    try {
+	    	id=kunden.get(kunden.size()-1).getId()+1;
+	    }	    	
+	    catch (ArrayIndexOutOfBoundsException e) {//kunden.size()-1 wirft diese Exception wenn das Array Kunden keine Elemente enthält (Size=0)
+	    	System.out.println("\nDies ist der erste Datensatz, ID=1");
+	    }
+	   /* catch (NullPointerException e) {
+	    	System.out.println("\nNullPointerException");
+	    }*/
+	}
+	// CONSOLE + XML =========================	
+	public static void new_con_xml() {
+		
+	}
+	// GUI + SQL =============================	
+	public static void new_gui_sql() {
+		
+	}
+	// GUI + XML =============================	
+	public static void new_gui_xml() {
+		
+	}
+	
+	
+//KUNDE LÖSCHEN
+	// CONSOLE + SQL =========================	
+	public static void del_con_sql() {
+		
+	}
+	// CONSOLE + XML =========================	
+	public static void del_con_xml() {
+		
+	}
+	// GUI + SQL =============================	
+	public static void del_gui_sql() {
+		
+	}
+	// GUI + XML =============================	
+	public static void del_gui_xml() {
+		
+	}
+	
+		
+//1 KUNDEN ANZEIGEN
+	// CONSOLE + SQL =========================	
+	public static void show_con_sql() {
+		
+	}
+	// CONSOLE + XML =========================	
+	public static void show_con_xml() {
+		
+	}
+	// GUI + SQL =============================	
+	public static void show_gui_sql() {
+		
+	}
+	// GUI + XML =============================	
+	public static void show_gui_xml() {
+		
+	}
+	
+//ALLE KUNDEN ANZEIGEN
+	// CONSOLE + SQL =========================	
+	public static void showall_con_sql() {
+		
+	}
+	// CONSOLE + XML =========================	
+	public static void showall_con_xml() {
+		
+	}
+	// GUI + SQL =============================	
+	public static void showall_gui_sql() {
+		
+	}
+	// GUI + XML =============================	
+	public static void showall_gui_xml() {
+		
+	}
+}

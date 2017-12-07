@@ -1,0 +1,179 @@
+package application;
+
+import java.sql.SQLException;
+import java.util.Scanner;
+
+import application.Objects.Helper;
+
+public class IO_Menu {
+	static Scanner sc = new Scanner(System.in);
+	public static int hauptmenu() {
+		System.out.println("==========RentYourFlugzeug==========\n______________________________________\n");
+	    System.out.println("----Menü----");
+	    System.out.println("1. Mietobjektverwaltung");
+	    System.out.println("2. Kundenverwaltung");
+	    System.out.println("3. Flugzeugvermietung");
+	    System.out.println("0. Beenden");
+	    int menu=sc.nextInt();
+	    
+	    int i=0;
+	    while (i==0) { 
+	        if ((menu>6)||(menu<0)) {
+	          System.out.print("\nSie haben keinen der Menüpunkte gewählt.\n Erneute Eingabe:");
+	          menu=sc.nextInt();
+	        } // end of if
+	        else i=1;
+	    } // end of while
+	    return menu;
+	    
+	    
+	    
+	}//end of method hauptmenu
+//-----------------------------------------------
+//--------------UNTERMENÜS-----------------------
+//-----------------------------------------------	
+	public static int menu_fluverw() {
+		System.out.println("\n==========Flugzeugverwaltung==========\n________________________________________\n");
+	    System.out.println("----Menü----");
+	    System.out.println("1. Objekt hinzufügen");
+	    System.out.println("2. Objekt entfernen");
+	    System.out.println("3. Ein Objekt anzeigen");
+	    System.out.println("4. Alle Objekte anzeigen");
+	    System.out.println("0. Beenden");
+	    int menu=sc.nextInt();
+	    int i=0;
+	    while (i==0) { 
+	        if ((menu>4)||(menu<0)) {
+	          System.out.print("\nSie haben keinen der Menüpunkte gewählt.\n Erneute Eingabe:");
+	          menu=sc.nextInt();
+	        } // end of if
+	        else i=1;
+	    }//end of while    
+	    return menu;	    
+	}//end of method menu_objverw
+	
+	public static int menu_kuverw() {
+		System.out.println("\n==========Kundenverwaltung==========\n________________________________________\n");
+	    System.out.println("----Menü----");
+	    System.out.println("1. Objekt hinzufügen");
+	    System.out.println("2. Objekt entfernen");
+	    System.out.println("3. Ein Objekt anzeigen");
+	    System.out.println("4. Alle Objekte anzeigen");
+	    System.out.println("0. Hauptmenü");
+	    int menu=sc.nextInt();
+	    int i=0;
+	    while (i==0) { 
+	        if ((menu>4)||(menu<0)) {
+	          System.out.print("\nSie haben keinen der Menüpunkte gewählt.\n Erneute Eingabe:");
+	          menu=sc.nextInt();
+	        } // end of if
+	        else i=1;
+	    }//end of while    
+	    return menu;	    
+	}//end of method kuverw
+	
+	public static int menu_verm() {
+		System.out.println("\n==========Flugzeugvermietung==========\n________________________________________\n");
+		System.out.println("----Menü----");
+	    System.out.println("1. Vermietung");
+	    System.out.println("2. Rückgabe");
+	    System.out.println("3. Suche (Kundennummer)");
+	    System.out.println("4. Suche (Flugzeugnummer)");
+	    System.out.println("0. Hauptmenü");
+	    int menu=sc.nextInt();
+	    int i=0;
+	    while (i==0) { 
+	        if ((menu>4)||(menu<0)) {
+	          System.out.print("\nSie haben keinen der Menüpunkte gewählt.\n Erneute Eingabe:");
+	          menu=sc.nextInt();
+	        } // end of if
+	        else i=1;
+	    }//end of while    
+		return menu;
+	}
+ //----------------------------------------------
+//
+//
+	static	Helper help = new Helper(); //löschen später!!!!!!!
+	public static void fortfahrenMainMenu() throws SQLException {
+		int i;
+		
+		do {
+			System.out.println("\nFortfahren im Hauptmenü? (Y/N)");
+	    	char del=sc.next().toLowerCase().charAt(0);
+	    	switch (del) {
+	    	case 'y' :
+	    		i=1;
+	    		Menuswitch.mainMenu(help);
+	    		break;
+	    	case 'n' :
+	    		i=1;
+	    		System.out.print("\n\nBeendet...");
+	    		break;
+	    	default:
+	    		i=0;
+	    	}
+		}while (i==0);
+	}//end of method fortfahrenMainMenu
+	
+	public static void fortfahrenfluverw(Helper help) throws SQLException {
+		int i;
+		do {
+			System.out.println("\nFortfahren? (Y/N)");
+	    	char del=sc.next().toLowerCase().charAt(0);
+	    	switch (del) {
+	    	case 'y' :
+	    		i=1;
+	    		Menuswitch.fluverw(help);
+	    		break;
+	    	case 'n' :
+	    		i=1;
+	    		Menuswitch.mainMenu(help);
+	    		break;
+	    	default:
+	    		i=0;
+	    	}
+		}while (i==0);
+	}//end of method fortfahrenfluverw
+	
+	public static void fortfahrenkuverw(Helper help) throws SQLException {
+		int i;
+		do {
+			System.out.println("\nFortfahren? (Y/N)");
+	    	char del=sc.next().toLowerCase().charAt(0);
+	    	switch (del) {
+	    	case 'y' :
+	    		i=1;
+	    		Menuswitch.kuverw(help);
+	    		break;
+	    	case 'n' :
+	    		i=1;
+	    		Menuswitch.mainMenu(help);
+	    		break;
+	    	default:
+	    		i=0;
+	    	}
+		}while (i==0);
+	}//end of method fortfahrenkuverw
+	
+	public static void fortfahrenverm(Helper help) throws SQLException {
+		int i;
+		do {
+			System.out.println("\nFortfahren? (Y/N)");
+	    	char del=sc.next().toLowerCase().charAt(0);
+	    	switch (del) {
+	    	case 'y' :
+	    		i=1;
+	    		Menuswitch.verm(help);
+	    		break;
+	    	case 'n' :
+	    		i=1;
+	    		Menuswitch.mainMenu(help);
+	    		break;
+	    	default:
+	    		i=0;
+	    	}
+		}while (i==0);
+	}//end of method fortfahrenverm
+	
+}

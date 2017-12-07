@@ -1,0 +1,27 @@
+package application;
+
+public class helper {
+	private String look, save;
+	
+	public helper() {};
+	public helper(String look, String save) {
+		this.look=look;
+		this.save=save;
+	}
+
+	
+	public void setLook(String look) {
+		this.look=look;
+	}
+	public void setSave(String save) {
+		this.save=save;
+	}
+	
+	public String getLook() {
+		return look;
+	}
+	public String getSave() {
+		return save;
+	}
+	
+}

@@ -1,0 +1,12 @@
+package application;
+
+public class objBuilder {
+
+	public static O_Flugzeug newflu(String Modell, int Sitze, int ID) {
+		
+		
+		
+		return null;
+		
+	}
+}

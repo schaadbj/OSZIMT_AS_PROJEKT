@@ -1,0 +1,51 @@
+package application;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import application.Hilfsklassen.Sqlquery;
+import application.Objects.Flugzeug;
+import application.Objects.Kunde;
+
+public class builder {
+
+//Erstellt Objekte
+	public static Flugzeug newflu(int id, String modell, int sitze) throws SQLException {
+		Flugzeug flugzeug = new Flugzeug(id, modell, sitze);
+		String newFlugzeug = Sqlquery.newFlugzeug(id, modell, sitze);
+		DBconnection.updateDB(newFlugzeug);
+		return flugzeug;
+	}
+	public static Kunde newku(int id, String nname, String vname, String str, int strnr, int plz, String ort) throws SQLException {
+		Kunde kunde = new Kunde(id, plz, strnr, vname, nname, str, ort);
+	    String newKunde = Sqlquery.newKunde(id, nname, vname, str, strnr, plz, ort);
+	    DBconnection.updateDB(newKunde);
+		return kunde;
+	}
+//Löscht Objekte
+	public static void delflu(int id) throws SQLException {
+		String delete = Sqlquery.delFlugzeug(id);
+    	DBconnection.updateDB(delete);
+	}
+	public static void delku(int id) throws SQLException {
+		String delete = Sqlquery.delKunde(id);
+		DBconnection.updateDB(delete);
+	}
+	
+//erzeugt aus DB Liste mit Objekten	
+	public static List<Flugzeug> getflu() throws SQLException {
+		//erzeuge ArrayList mit allen in DB(t_flugzeuge) vorhandenen Einträgen
+		String sqlquery = Sqlquery.getFlugzeuge();
+		List<Flugzeug> flugzeuge=DBconnection.showDBflu(sqlquery);
+		if (flugzeuge != null) return flugzeuge;
+		else return null;
+	}
+	public static List<Kunde> getku() throws SQLException {
+		String sqlquery = Sqlquery.getKunden();
+		List<Kunde> kunden=DBconnection.showDBku(sqlquery);
+		if (kunden != null) return kunden;
+		else return null;
+	}
+	
+	
+}

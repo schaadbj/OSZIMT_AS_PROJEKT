@@ -1,7 +1,10 @@
 package application;
 
+
+
 import java.sql.SQLException;
 
+import application.Objects.Helper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,7 +15,7 @@ import javafx.stage.Stage;
 public class Main extends Application{
 	public void start(Stage chooseUI) {
 		try {
-			TitledPane root = (TitledPane) FXMLLoader.load(getClass().getResource("chooseUI.fxml"));
+			TitledPane root = (TitledPane) FXMLLoader.load(getClass().getResource("choose.fxml"));
 			Scene scene = new Scene(root);
 			chooseUI.setScene(scene);
 			chooseUI.show();
@@ -20,13 +23,11 @@ public class Main extends Application{
 			e.printStackTrace();
 		}
 	}
-	public void fx_main(Stage MainMenu) {
-		
-	}
 	
-	public static void main(String[] args) throws SQLException {		
-		launch(args);
-		Menuswitch.mainMenu();		
+	public static void main(String[] args, Helper help) throws SQLException {		
+		//launch(args);
+		
+		Menuswitch.mainMenu(help);		
 	}
 
 }

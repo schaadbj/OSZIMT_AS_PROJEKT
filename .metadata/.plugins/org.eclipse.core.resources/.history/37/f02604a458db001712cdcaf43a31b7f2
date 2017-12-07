@@ -1,0 +1,147 @@
+package application;
+
+
+import java.sql.SQLException;
+
+public class Menuswitch {
+	public static void mainMenu(Helper help) throws SQLException {
+		int hauptmenu=IO_Menu.hauptmenu();		
+		switch (hauptmenu) {
+			case 1 : //Flugzeugverwaltung
+				Menuswitch.fluverw(help);
+			break;
+			case 2 : //Kundenverwaltung
+				Menuswitch.kuverw();
+			break;
+			case 3 : //Vermietung
+				Menuswitch.verm();
+			break;
+			case 0: //beenden
+				System.out.print("\n\nBeendet...");
+			break;
+			default:
+		} //end of switch hauptmenu
+	}//end of method MainMenu
+	
+	public static void fluverw(Helper help) throws SQLException {
+		int untermenu=IO_Menu.menu_fluverw();
+		String save, look;
+		switch (untermenu) {
+		//FLUGZEUG HINZUFÜGEN==========================================
+			case 1: 
+				save = help.getSave();
+				look = help.getLook();		
+				if (look.equals("con")) {
+					// CONSOLE + SQL =========================
+					if (save.equals("sql")) Fluverw.new_con_sql();
+					// CONSOLE + XML =========================
+					else if (save.equals("xml")) Fluverw.new_con_xml();
+				}
+				else if (look.equals("gui")) {
+					// GUI + SQL =============================
+					if (save.equals("sql")) Fluverw.new_gui_sql();
+					// GUI + XML =============================
+					else if (save.equals("xml")) Fluverw.new_gui_xml();
+				}
+			break;
+			case 2: //Objekt entfernen
+				save = help.getSave();
+				look = help.getLook();		
+				if (look.equals("con")) {
+					// CONSOLE + SQL =========================
+					if (save.equals("sql")) Fluverw.del_con_sql();
+					// CONSOLE + XML =========================
+					else if (save.equals("xml")) Fluverw.del_con_xml();
+				}
+				else if (look.equals("gui")) {
+					// GUI + SQL =============================
+					if (save.equals("sql")) Fluverw.del_gui_sql();
+					// GUI + XML =============================
+					else if (save.equals("xml")) Fluverw.del_gui_xml();
+				}								
+			break;
+			case 3: //Ein Objekt anzeigen
+				save = help.getSave();
+				look = help.getLook();		
+				if (look.equals("con")) {
+					// CONSOLE + SQL =========================
+					if (save.equals("sql")) Fluverw.show_con_sql();
+					// CONSOLE + XML =========================
+					else if (save.equals("xml")) Fluverw.show_con_xml();
+				}
+				else if (look.equals("gui")) {
+					// GUI + SQL =============================
+					if (save.equals("sql")) Fluverw.show_gui_sql();
+					// GUI + XML =============================
+					else if (save.equals("xml")) Fluverw.show_gui_xml();
+				}	
+			break;
+			case 4: //Alle Objekte anzeigen
+				save = help.getSave();
+				look = help.getLook();		
+				if (look.equals("con")) {
+					// CONSOLE + SQL =========================
+					if (save.equals("sql")) Fluverw.showall_con_sql();
+					// CONSOLE + XML =========================
+					else if (save.equals("xml")) Fluverw.showall_con_xml();
+				}
+				else if (look.equals("gui")) {
+					// GUI + SQL =============================
+					if (save.equals("sql")) Fluverw.showall_gui_sql();
+					// GUI + XML =============================
+					else if (save.equals("xml")) Fluverw.showall_gui_xml();
+				}
+			break;
+			case 0: //beenden
+				Menuswitch.mainMenu(help);
+			break;
+			default:
+		}//end of switch untermenu
+	}//end of method fluverw
+	
+	public static void kuverw() throws SQLException {
+		int untermenu=IO_Menu.menu_kuverw();
+		switch (untermenu) {
+			case 1: //Objekt hinzufügen
+				IO_kuverw.neuobj();
+			break;
+			case 2: //Objekt entfernen
+				IO_kuverw.delobj();								
+			break;
+			case 3: //Ein Objekt anzeigen
+				IO_kuverw.showobj();
+			break;
+			case 4: //Alle Objekte anzeigen
+				IO_kuverw.showall();
+			break;
+			case 0: //beenden
+//				Menuswitch.mainMenu(help);
+			break;
+			default:
+		}//end of switch untermenu
+	}//end of method kuverw
+	
+	public static void verm() throws SQLException {
+		int untermenu=IO_Menu.menu_verm();
+		switch (untermenu) {
+			case 1://Vermietung
+				IO_verm.vermietung();
+			break;
+			case 2://Rückgabe
+				IO_verm.ruckgabe();
+			break;
+			case 3://Suche (Kundennummer)
+				IO_verm.suche_knr();
+			break;
+			case 4://Suche (Flugzeug)
+				IO_verm.suche_fnr();
+			break;
+			case 0: //beenden
+//				Menuswitch.mainMenu(help);
+			break;
+		}//end of switch untermenu
+	}//end of method verm
+	
+		
+
+}

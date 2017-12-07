@@ -1,0 +1,12 @@
+package application;
+
+public class helper {
+
+	
+	public static String chooseLook(String look) {
+		return look;
+	}
+	public static String chooseSave(String save) {
+		return save;
+	}
+}

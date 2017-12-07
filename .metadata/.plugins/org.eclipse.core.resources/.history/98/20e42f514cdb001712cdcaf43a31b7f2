@@ -1,0 +1,19 @@
+package application;
+
+import java.util.Scanner;
+
+public class Fluverw {
+	static Scanner sc = new Scanner(System.in);
+	//====Neues Objekt====	
+	public static String new_getModell() {
+		System.out.print("\nGeben Sie das Flugzeugmodell ein: ");
+	    String modell=sc.next();
+	    return modell;
+	}//end of method neuobj
+	public static int new_getSitze()  {
+	    System.out.print("\nGeben Sie die Sitzplätze des Flugzeugs ein: ");
+	    int sitze=sc.nextInt();
+	    return sitze;
+	}//end of method neuobj
+	
+}

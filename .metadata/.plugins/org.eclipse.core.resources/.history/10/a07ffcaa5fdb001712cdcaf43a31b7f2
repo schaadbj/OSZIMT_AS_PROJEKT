@@ -1,0 +1,48 @@
+package application.Save;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import application.Objects.Flugzeug;
+import application.Objects.Kunde;
+
+public class BuilderXML {
+
+//Erstellt Objekte
+	//Flugzeug
+	public static Flugzeug newflu(int id, String modell, int sitze) throws SQLException {
+		
+		return flugzeug;
+	}
+	//Kunde
+	public static Kunde newku(int id, String nname, String vname, String str, int strnr, int plz, String ort) throws SQLException {
+		
+		return kunde;
+	}
+//Löscht Objekte
+	//Flugzeug
+	public static void delflu(int id) throws SQLException {
+		
+	}
+	//Kunde
+	public static void delku(int id) throws SQLException {
+		
+	}
+	
+//erzeugt aus XML Liste mit Objekten	
+	//Flugzeug
+	public static List<Flugzeug> getflu() throws SQLException {
+		//erzeuge ArrayList mit allen in DB(t_flugzeuge) vorhandenen Einträgen
+		String sqlquery = Sqlquery.getFlugzeuge();
+		List<Flugzeug> flugzeuge=DBconnection.showDBflu(sqlquery);
+		if (flugzeuge != null) return flugzeuge;
+		else return null;
+	}
+	//Kunde
+	public static List<Kunde> getku() throws SQLException {
+		String sqlquery = Sqlquery.getKunden();
+		List<Kunde> kunden=DBconnection.showDBku(sqlquery);
+		if (kunden != null) return kunden;
+		else return null;
+	}	
+}
